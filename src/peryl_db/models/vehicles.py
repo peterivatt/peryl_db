@@ -5,7 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 from peryl_db.base import Base
-
+from peryl_db.mixins import MetadataMixin
 
 class Vehicle(Base):
     __tablename__ = "vehicles"
@@ -48,18 +48,11 @@ class VehicleSpecs(Base):
                                                                           cascade="all, delete-orphan")
 
 
-class VehicleSpecsMetadata(Base):
+class VehicleSpecsMetadata(MetadataMixin, Base):
     __tablename__ = "vehicle_specs_metadata"
     __table_args__ = {"schema": "vehicle"}
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-
     specs_id: Mapped[int] = mapped_column(ForeignKey("vehicle.vehicle_spec.id"),
                                           nullable=False)
-
-    variable: Mapped[str]
-    date_set: Mapped[datetime]
-    confidence: Mapped[float]
-    source_url: Mapped[str]
 
     specs: Mapped["VehicleSpecs"] = relationship(back_populates="metadata_entries")
