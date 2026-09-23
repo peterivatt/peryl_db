@@ -1,0 +1,1 @@
+from peryl_db.models.vehicles import Vehicle
