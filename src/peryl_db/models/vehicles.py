@@ -1,24 +1,31 @@
 from datetime import datetime
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 
 from peryl_db.base import Base
 
 
 class Vehicle(Base):
     __tablename__ = "vehicles"
-    __table_args__ = {"schema": "vehicle"}
+    __table_args__ = (UniqueConstraint("make",
+                                       "model",
+                                       "model_year",
+                                       "trim",
+                                       name="uq_vehicle_identity"),
+                      {"schema": "vehicle"})
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
     make: Mapped[str]
     model: Mapped[str]
+    model_year: Mapped[int]
+    trim: Mapped[str | None]
 
     specs: Mapped["VehicleSpecs | None"] = relationship(back_populates="vehicle",
                                                         cascade="all, delete-orphan",
                                                         uselist=False)
-
 
 class VehicleSpecs(Base):
     __tablename__ = "vehicle_spec"
