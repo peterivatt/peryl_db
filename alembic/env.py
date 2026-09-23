@@ -8,7 +8,6 @@ from sqlalchemy import URL, create_engine, pool
 from alembic import context
 
 from peryl_db.base import Base
-import peryl_db.models
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
