@@ -22,6 +22,14 @@ class Vehicle(Base):
     model: Mapped[str]
     model_year: Mapped[int]
     trim: Mapped[str | None]
+    research_status: Mapped[str] = mapped_column(default="missing")
+    """
+    research_status:
+        missing: no specs
+        incomplete: gaps in spec
+        unreliable: populated with at least 1 low confidence values.
+        complete: populated with high confidence values.
+    """
 
     specs: Mapped["VehicleSpecs | None"] = relationship(back_populates="vehicle",
                                                         cascade="all, delete-orphan",
