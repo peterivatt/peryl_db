@@ -11,7 +11,8 @@ class Vehicle(Base):
     __tablename__ = "vehicles"
     __table_args__ = (UniqueConstraint("make",
                                        "model",
-                                       "model_year",
+                                       "model_year_start",
+                                       "model_year_end",
                                        "trim",
                                        name="uq_vehicle_identity"),
                       {"schema": "vehicle"})
@@ -20,7 +21,8 @@ class Vehicle(Base):
 
     make: Mapped[str]
     model: Mapped[str]
-    model_year: Mapped[int]
+    model_year_start: Mapped[int]
+    model_year_end: Mapped[int]
     trim: Mapped[str | None]
     research_status: Mapped[str] = mapped_column(default="missing")
     """
