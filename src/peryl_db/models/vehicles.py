@@ -3,7 +3,6 @@ from datetime import datetime
 from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-
 from peryl_db.base import Base
 from peryl_db.mixins import MetadataMixin
 
@@ -51,6 +50,7 @@ class VehicleSpecs(Base):
     length_mm: Mapped[int | None]
     height_mm: Mapped[int | None]
     curb_weight_kg: Mapped[int | None]
+    stock_tire_class: Mapped[int | None]
 
     vehicle: Mapped["Vehicle"] = relationship(back_populates="specs")
 

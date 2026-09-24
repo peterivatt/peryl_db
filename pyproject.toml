@@ -9,11 +9,15 @@ description = "Peryl database models and migrations"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "peryl_core",
     "SQLAlchemy>=2",
     "alembic",
     "psycopg[binary]>=3",
     "python-dotenv",
 ]
+
+[tool.uv.sources]
+peryl_core = { path = "../peryl_core", editable = true }
 
 [tool.setuptools]
 package-dir = {"" = "src"}
